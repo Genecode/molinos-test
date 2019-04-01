@@ -1,6 +1,8 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
+  #TODO update slug on change name or modify him
+
   # GET /categories
   # GET /categories.json
   def index
