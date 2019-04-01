@@ -11,7 +11,7 @@
     .container
       %ul
         - if admin_signed_in?
-          %li= link_to 'Админка', rails_admin_path
+          -#%li= link_to 'Админка', rails_admin_path
           %li= link_to 'Выйти', destroy_admin_session_path, method: :delete
         - else
           %li= link_to 'Войти', new_admin_session_path
