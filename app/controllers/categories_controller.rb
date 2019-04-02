@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
-
+  protect_from_forgery except: [:create]
   #TODO update slug on change name or modify him
 
   # GET /categories

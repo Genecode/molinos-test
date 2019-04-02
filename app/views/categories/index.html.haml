@@ -1,16 +1,14 @@
 %p#notice= notice
 %h1 Categories
-%table
-  %thead
-    %tr
-      %th Name
-      %th{:colspan => "3"}
-  %tbody
-    - @categories.each do |category|
-      %tr
-        %td= category.name
-        %td= link_to 'Show', category
-        %td= link_to 'Edit', edit_category_path(category)
-        %td= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Category', new_category_path
+.nestable-menu
+  %button{type: "button",
+    data: {action: "expand-all"},
+    class: "btn btn-sm btn-secondary"} Expand All
+  %button{type: "button",
+    data: {action: "collapse-all"},
+    class: "btn btn-sm btn-secondary"} Collapse All
+.dd
+  = nested_categories @categories.arrange
+%hr
+= link_to 'New Category', new_category_path, class: "btn btn-primary"
+%button{type:"button", class: "btn btn-primary btn-update-categories"} Update categories
