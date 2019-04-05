@@ -1,0 +1,7 @@
+.col-md-4
+  .card
+    .card-body
+      = image_tag product_image(product), class: 'card-img-top'
+      %h5.card-title= product.name
+      %p.card-text= product.description
+      .btn.btn-primary Buy this

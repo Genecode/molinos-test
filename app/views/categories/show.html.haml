@@ -1,12 +1,13 @@
-%p#notice= notice
-%p
-  %strong Name:
-  = @category.name
+.row.justify-content-center
+  .col-md
+    %h3 Category:  #{@category.name}
+    - if @category.children?
+      .list-group
+        = render partial: 'categories/category', collection:  @category.children
+    - if @category.products.any?
+      %h5
+        Products:
+      .card-group
+        = render partial: 'categories/product', collection: @category.products
 
-Ancestry :
-= @category.ancestry
-
-.w-100
-= link_to 'Edit', edit_category_path(@category)
-|
-= link_to 'Back', categories_path
+    = link_to 'Back to categories', categories_path

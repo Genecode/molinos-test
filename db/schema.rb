@@ -55,10 +55,8 @@ ActiveRecord::Schema.define(version: 2019_04_01_154711) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "product_id"
     t.string "ancestry"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
-    t.index ["product_id"], name: "index_categories_on_product_id"
     t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
 

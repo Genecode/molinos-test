@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   devise_for :admins
 
-  root 'categories#index'
-
-  resources :categories, shallow: true do
-    resources :products, shallow: true
+  namespace :private do
+    root 'categories#index'
+    resources :categories, except: %i[show] do
+      patch 'collection', on: :collection
+      resources :products, shallow: true
+    end
   end
+
+  root 'categories#index'
+  resources :categories, only: %i[index show]
 end

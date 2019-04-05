@@ -1,24 +1,55 @@
-# README
+# Ancestry (Test Application for Molinos.ru)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### Описание
 
-Things you may want to cover:
+Проект создан в рамках выполнения тестового задания.  
 
-* Ruby version
+##### Ruby version
+```
+ruby 2.5
+```
 
-* System dependencies
+##### Ruby on Rails version
+```
+Rails 5.2
+```
 
-* Configuration
+### Первый запуск
+```
+gem install bundler
+bundle install
+```
 
-* Database creation
+Подготавливаем базу данных:
 
-* Database initialization
+```
+rails db:create
+rails db:migrate
+```
 
-* How to run the test suite
+При желании можно заполнить базу тестовыми данными: 
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+rails db:seed
+```
+Если Вы заполнили базу тестовыми данными, вход для администратора login: test1@mail.ru, password: '123123'. Если нужен новый, то:
 
-* Deployment instructions
+```
+rails c
+Admin.create!(emai: 'ваш емэйл', password: '******', password_confirmation: '******')
+```
 
-* ...
+Запуск сервера
+
+```
+rails s
+```
+Для посетилей доступ стандартныйЖ  127.0.0.1:3000
+
+Для редактирования  товаров и категорий 127.0.0.1:3000/private
+
+#####TODO
+Ввиду нехватки времени (ковырялся с javascript), обновление категорий товаров AJAX запросом будет работать с багами. Поправлю в ближайшее время. 
+
+Ну и конечно же тесты ))))
+

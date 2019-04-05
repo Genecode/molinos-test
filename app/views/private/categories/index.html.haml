@@ -1,0 +1,17 @@
+%h1 Categories
+.nestable-menu
+  %button{type: "button",
+    data: {action: "expand-all"},
+    class: "btn btn-sm btn-secondary"} Expand All
+  %button{type: "button",
+    data: {action: "collapse-all"},
+    class: "btn btn-sm btn-secondary"} Collapse All
+.dd
+  = nested_categories @categories.arrange
+%hr
+= link_to 'New Category', new_private_category_path, class: "btn btn-primary"
+- if @category.present?
+  = link_to 'New product', new_private_category_product_path(@category), class: "btn btn-primary"
+%button{type:"button", class: "btn btn-primary btn-update-categories"} Update categories
+
+

@@ -1,18 +1,20 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "text/html; charset=UTF-8",
+      "http-equiv" => "Content-Type"}/
     %title MolinosAncestry
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
   %body
-    .container
-      %ul
-        - if admin_signed_in?
-          -#%li= link_to 'Админка', rails_admin_path
-          %li= link_to 'Выйти', destroy_admin_session_path, method: :delete
-        - else
-          %li= link_to 'Войти', new_admin_session_path
-      = yield
+  %ul.nav
+    - if admin_signed_in?
+      %li.nav-item= link_to 'Home', private_root_path, class: 'nav-link'
+      %li.nav-item= link_to 'Logout', destroy_admin_session_path, method: :delete, class: 'nav-link'
+    - else
+      %li.nav-item= link_to 'Home', root_path, class: 'nav-link'
+  .container
+    = bootstrap_flash
+    = yield

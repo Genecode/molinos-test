@@ -1,0 +1,8 @@
+.dd-handle
+  .dd-base
+    = category.name
+  .dd-nodrag
+    = link_to fa_icon('eye'), private_category_products_path(category),
+        data: {toggle: 'tooltip', placement: 'top'}, title: 'Show category products'
+    = link_to fa_icon('pencil'), edit_private_category_path(category)
+    = link_to  fa_icon('trash'), category, method: :delete, data: { confirm: 'Delete category?' }

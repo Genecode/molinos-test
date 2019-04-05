@@ -1,0 +1,15 @@
+.row.justify-content-center
+  .col-md-6
+    .card
+      .card-header= @product.name
+      = image_tag product_image(@product), class: 'card-img-top'
+      .card-body
+        .card-text
+          Description
+          = @product.description
+      .card-body
+        Category name:
+        = @product.category.name
+      .card-body
+        = link_to 'Edit product', edit_private_product_path(@product), class: 'card-link'
+        = link_to 'To category',  private_category_products_path(@product.category), class: 'card-link'

@@ -1,0 +1,23 @@
+= form_with(model: category,
+   local: true,
+   url: (category.new_record? ? private_categories_path : private_category_path(category))) do |form|
+  - if category.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(category.errors.count, "error")
+        prohibited this category from being saved:
+      %ul
+        - category.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = form.label :name
+    = form.text_field :name, class: 'form-control'
+  .form-group
+    = form.label :slug
+    = form.text_field :slug, class: 'form-control'
+  .form-group
+    = form.label :ancestry
+    = form.collection_select :ancestry, Category.all, :id, :name, {}, {class: 'form-control'}
+
+  = form.submit class: "btn btn-primary"

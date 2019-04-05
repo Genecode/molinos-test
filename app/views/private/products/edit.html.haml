@@ -1,0 +1,6 @@
+%h1 Editing Product
+= render 'form', product: @product
+
+= link_to 'Show', private_product_path(@product)
+|
+= link_to 'Back',private_category_products_path(@product.category)
