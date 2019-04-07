@@ -11,17 +11,10 @@ class Private::CategoriesController < ApplicationController
     @category = Category.new
   end
 
-  def update_tree(tree_nodes, parent_node = nil)
-    tree_nodes.each do |item|
-      node = Category.find(item['id'].to_s)
-      node.parent = parent_node || nil
-      node.save!(validate: @enable_callback)
-      update_tree(item['children'], node) if item.has_key?('children')
-    end
-  end
+
 
   def commit
-    update_tree(params.require(:categories))
+    category_updater = CategoryUpdateAncestryService.execute(params)
 
     respond_to do |format|
       format.json { render json: { code: 200 }, status: 200 }
