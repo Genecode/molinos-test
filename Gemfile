@@ -24,6 +24,7 @@ gem 'mini_magick', '~> 4.8'
 gem 'activestorage-validator'
 
 gem 'friendly_id'
+gem 'babosa'
 gem 'ancestry'
 
 # db
