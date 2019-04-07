@@ -13,38 +13,31 @@ $(document).ready(function() {
     }
   });
 
-  let anc = '';
-  function ancFn (arr) {
-    this.push({id: arr.id, ancestry: anc});
-    if('children' in arr){
-      if (arr.children.length > 0){
-        anc = arr.id;
-        arr.children.forEach(ancFn,this);
-        anc = '';
-      }
-    }
-  }
-
   $('.btn-update-categories').on('click', function (e){
-    let category = [];
-    $nestable.nestable('serialize').forEach(ancFn, category);
 
-    $.ajax({
-      dataType: 'json',
-      cache: false,
-      url: 'private/categories/collection',
-      type: 'PATCH',
-      data: {category},
-      success: function(data) {
-         console.log('success');
-        let $flash;
-        $flash = $('<div>').addClass('nestable-flash alert alert-success').append($('<button>').addClass('close').data('dismiss', 'alert').html('&times;')).append($('<span>').addClass('body').html(data));
-        $('#rails_admin_nestable').append($flash);
-        return $flash.fadeIn(200).delay(2000).fadeOut(200, function() {
-          return $(this).remove();
-        });
-      }
+    fetch('./private/categories/commit', {
+      method: 'post',
+      body: JSON.stringify({'categories': $nestable.nestable('serialize')}),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': Rails.csrfToken()
+      },
+      credentials: 'same-origin'
+    }).then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      console.log(data);
     });
+
+    //   success: function(data) {
+    //      console.log('success');
+    //     let $flash;
+    //     $flash = $('<div>').addClass('nestable-flash alert alert-success').append($('<button>').addClass('close').data('dismiss', 'alert').html('&times;')).append($('<span>').addClass('body').html(data));
+    //     $('#rails_admin_nestable').append($flash);
+    //     return $flash.fadeIn(200).delay(2000).fadeOut(200, function() {
+    //       return $(this).remove();
+    //     });
+    //   }
   })
 });
 

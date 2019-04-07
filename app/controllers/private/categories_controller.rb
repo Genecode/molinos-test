@@ -1,7 +1,6 @@
 class Private::CategoriesController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_category, only: [:edit, :update, :destroy]
-  protect_from_forgery except: [:collection]
 
   def index
     @categories = Category.all
@@ -12,28 +11,24 @@ class Private::CategoriesController < ApplicationController
     @category = Category.new
   end
 
-
-  def collection
-    #TODO refactor !! tranzaction + security + replace
-    @category_collection = params.require(:category).values
-
-    @category_collection.each do |item|
-      @category = Category.friendly.find(item['id'].to_i)
-      ancestry_id = item['ancestry']
-      if ancestry_id.present?
-        @category.ancestry = Category.friendly.find(ancestry_id.to_i)
-      else
-        @category.ancestry = nil
-      end
-      @category.save
+  def update_tree(tree_nodes, parent_node = nil)
+    tree_nodes.each do |item|
+      node = Category.find(item['id'].to_s)
+      node.parent = parent_node || nil
+      node.save!(validate: @enable_callback)
+      update_tree(item['children'], node) if item.has_key?('children')
     end
+  end
+
+  def commit
+    update_tree(params.require(:categories))
+
     respond_to do |format|
       format.json { render json: { code: 200 }, status: 200 }
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @category = Category.new(category_params)

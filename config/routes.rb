@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :private do
     root 'categories#index'
     resources :categories, except: %i[show] do
-      patch 'collection', on: :collection
+      post 'commit', on: :collection
       resources :products, shallow: true
     end
   end
