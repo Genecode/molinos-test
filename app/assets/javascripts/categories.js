@@ -24,21 +24,19 @@ $(document).ready(function() {
       },
       credentials: 'same-origin'
     }).then(function(response) {
+      if(response.code == 200) {addAlert('Success update')};
       return response.json();
-    }).then(function(data) {
-      console.log(data);
-    });
+    }).then(function (data) {
+      console.log(data)
+    }).catch( error => console.log(error));
+  });
 
-    //   success: function(data) {
-    //      console.log('success');
-    //     let $flash;
-    //     $flash = $('<div>').addClass('nestable-flash alert alert-success').append($('<button>').addClass('close').data('dismiss', 'alert').html('&times;')).append($('<span>').addClass('body').html(data));
-    //     $('#rails_admin_nestable').append($flash);
-    //     return $flash.fadeIn(200).delay(2000).fadeOut(200, function() {
-    //       return $(this).remove();
-    //     });
-    //   }
-  })
+  function addAlert(message) {
+    $('.container').prepend(
+      '<div class="alert fade in show alert-success">' +
+      '<button type="button" class="close" data-dismiss="alert">' +
+      '&times;</button>' + message + '</div>');
+  }
 });
 
 
