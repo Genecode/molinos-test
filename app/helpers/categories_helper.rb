@@ -8,4 +8,8 @@ module CategoriesHelper
       end.join.html_safe
     end
   end
+
+  def parent_category(category)
+    category.parent.present? ? category.parent.id : nil
+  end
 end

@@ -18,6 +18,9 @@
     = form.text_field :slug, class: 'form-control'
   .form-group
     = form.label :ancestry
-    = form.collection_select :ancestry, Category.all, :id, :name, {}, {class: 'form-control'}
+    = form.collection_select :ancestry, Category.all,
+            :id, :name,
+            { selected: parent_category(category) },
+            { class: 'form-control' }
 
   = form.submit class: "btn btn-primary"

@@ -16,8 +16,13 @@ class Private::CategoriesController < ApplicationController
   def commit
     category_updater = CategoryUpdateAncestryService.execute(params)
 
+    category_updater.success?
     respond_to do |format|
-      format.json { render json: { code: 200 }, status: 200 }
+      if category_updater.success?
+        format.json { render json: { code: 200 }, status: 200 }
+      else
+        format.json { render json: { code:500, data: category_updater.errors }, status: 500}
+      end
     end
   end
 

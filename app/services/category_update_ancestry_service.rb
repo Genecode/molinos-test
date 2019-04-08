@@ -1,5 +1,4 @@
 class CategoryUpdateAncestryService
-  # TODO add error handler
   attr_reader :tree_nodes, :errors
 
   def self.execute(params)
@@ -8,12 +7,15 @@ class CategoryUpdateAncestryService
 
   def initialize(params)
     @tree_nodes = params[:categories]
+    @errors = []
   end
 
   def update_categories
     ActiveRecord::Base.transaction do
       update_nodes(tree_nodes)
     end
+  rescue ActiveRecord::RecordInvalid => exception
+    @errors << exception
   end
 
   def success?
@@ -21,6 +23,7 @@ class CategoryUpdateAncestryService
   end
 
   def failure?
+    @errors.any?
   end
 
   private
